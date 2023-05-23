@@ -1,0 +1,21 @@
+<form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+</form>
+
+<h1>PREDICTED PRICE</h1>
+<h3>{{ prediction }}</h3>
+<a href="{{ krysha }}">Krysha</a>
+
+
+
+
+{% if user.is_authenticated %}
+<button type="submit"><a href="{% url 'signout' %}">SignOut</a></button>
+{% else %}
+<button type="submit"><a href="{% url 'signup' %}">SignUp</a></button>
+<button type="submit"><a href="{% url 'signin' %}">SignIn</a></button>
+{% endif %}
+
+<button type="submit"><a href="{% url 'history' %}">History</a></button>

@@ -1,0 +1,27 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+<section class="container" style="width: 50%;">
+    <header>Sign In</header>
+    <form method="post" class="form">
+        {% csrf_token %}
+        {{ form.as_hidden }}
+
+        <div class="input-box">
+            <label>Username</label>
+            {{ form.username }}
+        </div>
+
+        <div class="input-box">
+            <label>Password</label>
+            {{ form.password }}
+        </div>
+
+      <button type="submit"><h4>Submit</h3></button>
+        <br>
+        <br>
+
+        <a href="{% url 'signup' %}">Don't have an account? Sign Up!</a>
+    </form>
+  </section>
+{% endblock content %}

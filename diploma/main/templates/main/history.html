@@ -1,0 +1,75 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+<section class="container">
+    <table class="table table-striped custom-table">
+
+      <tbody>
+        {% if user.is_authenticated %}
+
+        <thead>
+            <tr>
+              <th scope="col">Total Area</th>
+              <th scope="col">Number of Levels</th>
+              <th scope="col">Building Type</th>
+              <th scope="col">Condition</th>
+              <th scope="col">Ceilings</th>
+              <th scope="col">Parking</th>
+              <th scope="col">Fire Alarm</th>
+              <th scope="col">Security</th>
+              <th scope="col">Video Surveillance</th>
+              <th scope="col">Alarm System</th>
+              <th scope="col">Optics</th>
+              <th scope="col">Predicted Price</th>
+              <th scope="col">Date</th>
+            </tr>
+          </thead>
+
+        {% for history in history %}
+
+            <tr scope="row">
+                <td>{{ history.total_area }}</td>
+                <td>{{ history.number_of_levels }}</td>
+                <td>{{ history.buildingType }}</td>
+                <td>{{ history.condition }}</td>
+                <td>{{ history.ceilings }}</td>
+                <td>{{ history.parking }}</td>
+                <td>{{ history.firealarm }}</td>
+                <td>{{ history.security }}</td>
+                <td>{{ history.video_surveillance }}</td>
+                <td>{{ history.alarm_system }}</td>
+                <td>{{ history.optics }}</td>
+                <td>{{ history.predicted_price }}</td>
+                <td>{{ history.updated_at|date:"Y-m-d H:i" }}</td>
+            </tr>
+
+        {% endfor %}
+
+        {% else %}
+            <h2>You have to log in first!</h2>
+        {% endif %}
+
+
+
+      </tbody>
+    </table>
+  </section>
+
+{% endblock content %}
+
+
+<!-- <div>
+    {{ history.total_area }}
+    {{ history.number_of_levels }}
+    {{ history.buildingType }}
+    {{ history.condition }}
+    {{ history.ceilings }}
+    {{ history.parking }}
+    {{ history.firealarm }}
+    {{ history.security }}
+    {{ history.video_surveillance }}
+    {{ history.alarm_system }}
+    {{ history.optics }}
+    {{ history.predicted_price }}
+    {{ history.updated_at|date:"Y-m-d H:i" }}
+</div> -->

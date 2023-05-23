@@ -1,0 +1,108 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+<section class="container" style="width:50%">
+
+    <center><h1>PREDICTED PRICE: {{ prediction }}KZT</h1></center>
+
+    {% if toShow %}
+    <a href="{{ krysha }}">Look at other properties with a similar price</a>
+    {% endif %}
+
+    <header>Prediction Form</header>
+
+    <form method="post" class="form">
+        {% csrf_token %}
+        {{form.as_hidden}}
+        
+        <div class="input-box">
+            <label>Total Area</label>
+            <input type="number" placeholder="Enter square in m²" name="total_area" value="{{ form.total_area.value }}" required />
+        </div>
+
+        <div class="input-box">
+            <label>Number of Levels</label>
+            <input type="number" placeholder="Enter number of levels" name="number_of_levels" value="{{ form.number_of_levels.value }}" required />
+        </div>
+
+        <div class="input-box">
+            <label>Ceilings</label>
+            <input type="number" step="0.01" placeholder="Enter height of ceilings in meters" name="ceilings" value="{{ form.ceilings.value }}" required />
+        </div>
+
+        <div class="option-box">
+            <h3>Building Type</h3>
+            {{ form.buildingType }}
+        </div>
+
+        <div class="option-box">
+            <h3>Building Condition</h3>
+            <div class="option-option">
+                {{ form.condition }}
+            </div>
+        </div>
+          
+        <div class="option-box">
+        <h3>Does your building have? Yes/No</h3>
+
+            <div class="option">
+                <input type="checkbox" id="check-parking" name="{{ form.parking.name }}" {% if form.parking.value %}checked{% endif %} />
+                <label for="check-parking">parking</label>
+            </div>
+
+            <br>
+
+            <div class="option">
+                <input type="checkbox" id="check-parking" name="{{ form.firealarm.name }}" {% if form.firealarm.value %}checked{% endif %} />
+                <label for="check-parking">firealarm</label>
+            </div>
+
+            <br>
+
+            <div class="option">
+                <input type="checkbox" id="check-parking" name="{{ form.security.name }}" {% if form.security.value %}checked{% endif %} />
+                <label for="check-parking">security</label>
+            </div>
+
+            <br>
+            
+            <div class="option">
+                <input type="checkbox" id="check-parking" name="{{ form.video_surveillance.name }}" {% if form.video_surveillance.value %}checked{% endif %} />
+                <label for="check-parking">video_surveillance</label>
+            </div>
+
+            <br>
+            
+            <div class="option">
+                <input type="checkbox" id="check-parking" name="{{ form.alarm_system.name }}" {% if form.alarm_system.value %}checked{% endif %} />
+                <label for="check-parking">alarm_system</label>
+            </div>
+
+            <br>
+
+            <div class="option">
+                <input type="checkbox" id="check-parking" name="{{ form.optics.name }}" {% if form.optics.value %}checked{% endif %} />
+                <label for="check-parking">optics</label>
+            </div>
+        </div>
+
+    <button type="submit">Submit</button>
+  </form>
+
+</section>
+{% endblock content %}
+
+
+
+<!-- <form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+</form>
+
+<h1>PREDICTED PRICE</h1>
+<h3>{{ prediction }}</h3>
+<!-- <a href="{{ krysha }}">Krysha</a> --> -->
+
+
+

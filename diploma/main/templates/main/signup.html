@@ -1,0 +1,46 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+<section class="container" style="width: 50%;">
+    <header>Registration</header>
+    <form method="post" class="form">
+
+    {% csrf_token %}
+        <div class="input-box">
+            <label>Username</label>
+            {{ form.username }}
+        </div>
+
+        <div class="input-box">
+            <label>First Name</label>
+            <input type="password">
+            {{ form.fname }}
+        </div>
+
+        <div class="input-box">
+            <label>Last Name</label>
+            {{ form.lname }}
+        </div>
+
+        <div class="input-box">
+            <label>Email Address</label>
+            {{ form.email }}
+        </div>
+
+        <div class="input-box">
+            <label>Password</label>
+            {{ form.pass1 }}
+        </div>
+
+        <div class="input-box">
+            <label>Password Confirmation</label>
+            {{ form.pass2 }}
+        </div>
+
+        <button type="submit"><h4>Submit</h3></button>
+        <br>
+        <br>
+        <a href="{% url 'signin' %}">Already have an account? Sign In!</a>
+    </form>
+  </section>
+{% endblock content %}

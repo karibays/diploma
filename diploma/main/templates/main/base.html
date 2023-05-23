@@ -1,0 +1,53 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Valhalla</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+
+  </head>
+
+  <body>
+
+    <nav class="navbar">
+      <ul class="navbar-nav" style="width: 100%;">
+        <div class="nav-item-right">
+          <li class="nav-item">
+            <a href="{% url 'index' %}" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'history' %}" class="nav-link">History</a>
+          </li>
+          <div class="nav-item-right" style="margin-left: auto;">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a href="{% url 'signout' %}" class="nav-link">SignOut</a>
+              </li>
+            {% else %}
+            <li class="nav-item">
+                <a href="{% url 'signin' %}" class="nav-link">SignIn</a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'signup' %}" class="nav-link">SignUp</a>
+              </li>
+            {% endif %}
+          </div>
+        </div>
+      </ul>
+    </nav>
+    
+    {% block content %}
+    {% endblock content %}
+
+  </body>
+
+</html>

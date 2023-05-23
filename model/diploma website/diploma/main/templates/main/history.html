@@ -1,0 +1,37 @@
+
+asdasdasd
+
+{% if user.is_authenticated %}
+
+<button type="submit"><a href="{% url 'signout' %}">SignOut</a></button>
+{% else %}
+<button type="submit"><a href="{% url 'signup' %}">SignUp</a></button>
+<button type="submit"><a href="{% url 'signin' %}">SignIn</a></button>
+{% endif %}
+<button type="submit"><a href="{% url 'index' %}">Main</a></button>
+{% if user.is_authenticated %}
+
+
+{% for history in history %}
+    <div>
+        {{ history.total_area }}
+        {{ history.number_of_levels }}
+        {{ history.buildingType }}
+        {{ history.condition }}
+        {{ history.ceilings }}
+        {{ history.parking }}
+        {{ history.firealarm }}
+        {{ history.security }}
+        {{ history.video_surveillance }}
+        {{ history.alarm_system }}
+        {{ history.optics }}
+        {{ history.predicted_price }}
+        {{ history.updated_at|date:"Y-m-d H:i" }}
+    </div>
+
+<hr>
+{% endfor %}
+
+{% else %}
+You have to log in first!
+{% endif %}
