@@ -1,0 +1,147 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+<section class="container">
+    <div style="width: 100%;">
+        <h4>Total number of predictions: {{number_of_history_notes}}</h4>
+        <h4>Number of non-registered user' predictions: {{number_of_history_notes_anonymous}}</h4>
+        <h4>Number of registered users' predictions: {{number_of_history_notes_registered}}</h4>
+    </div>
+    <hr>
+
+    <div>
+        <h4>Average KZT per meter square: {{average_kzt_per_meter}}</h4>
+    </div>
+    <hr>
+    
+    <div style="width: 100%;">
+        <h3>Ratio of bulding types</h3>
+    
+        <div style="display: inline-block;">
+            <canvas id="building_types_pie"></canvas>
+        </div>
+        
+        <div style="display: inline-block; width: 30%; margin-left: 10%;">
+            <canvas id="building_types_bar"></canvas>
+        </div>
+    </div>
+    <hr>
+    
+    <div style="width: 100%;">
+        <h3>Ratio of condition types</h3>
+    
+        <div style="display: inline-block;">
+            <canvas id="condition_types_pie"></canvas>
+        </div>
+        
+        <div style="display: inline-block; width: 30%; margin-left: 10%;">
+            <canvas id="condition_types_bar"></canvas>
+        </div>
+    </div>
+    <hr>
+</section>
+{% endblock content %}
+
+{% block script %}
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <script>
+    // ----------------------------------------------------------
+    // ----------------------------------------------------------
+    const build_pie = document.getElementById('building_types_pie');
+
+    var keys = {{ building_types_keys|safe }};
+    var data = {{ building_types_values|safe }};
+
+    new Chart(build_pie, {
+      type: 'pie',
+      data: {
+        labels: keys,
+        datasets: [{
+          label: '# count',
+          data: data,
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+    // ----------------------------------------------------------
+    const build_bar = document.getElementById('building_types_bar');
+
+
+    new Chart(build_bar, {
+    type: 'bar',
+    data: {
+        labels: keys,
+        datasets: [{
+        label: '# count',
+        data: data,
+        borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+        y: {
+            beginAtZero: true
+        }
+        }
+    }
+    });
+    // ----------------------------------------------------------
+    // ----------------------------------------------------------
+    const cond_pie = document.getElementById('condition_types_pie');
+
+    var keys = {{ condition_types_keys|safe }};
+    var data = {{ condition_types_values|safe }};
+
+    new Chart(cond_pie, {
+    type: 'pie',
+    data: {
+        labels: keys,
+        datasets: [{
+        label: '# count',
+        data: data,
+        borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+        y: {
+            beginAtZero: true
+        }
+        }
+    }
+    });
+    // ----------------------------------------------------------
+    const cond_bar = document.getElementById('condition_types_bar');
+
+
+    new Chart(cond_bar, {
+    type: 'bar',
+    data: {
+        labels: keys,   
+        datasets: [{
+        label: '# count',
+        data: data,
+        borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+        y: {
+            beginAtZero: true
+        }
+        }
+    }
+    });
+    // ----------------------------------------------------------
+    // ----------------------------------------------------------
+  </script>
+   
+{% endblock script %}

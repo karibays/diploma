@@ -2,11 +2,14 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.contrib.auth.decorators import user_passes_test
 
 from .forms import PredictionForm, RegistrationForm, LoginForm
 from .models import History
 from .data import Building_and_Condition_Types
 from .predictor import myModel
+
+from collections import Counter
 
 
 # MAIN PAGE
@@ -65,6 +68,47 @@ def history(request):
     else:    
         history_notes = History.objects.filter(user=request.user)
         return render(request, "main/history.html", {"history": history_notes})
+    
+
+# ANALYTICS PAGE
+@user_passes_test(lambda u: u.is_superuser)
+def dashboard(request):
+
+
+    number_of_history_notes = History.objects.all().count()
+
+    number_of_history_notes_anonymous = list(History.objects.values_list('user',  flat=True))
+    number_of_history_notes_anonymous = Counter(number_of_history_notes_anonymous)[None]
+
+    number_of_history_notes_registered = number_of_history_notes - number_of_history_notes_anonymous
+
+    buildingType_column = list(History.objects.values_list('buildingType',  flat=True))
+    condition_column = list(History.objects.values_list('condition',  flat=True))
+    total_area_column = list(History.objects.values_list('total_area',  flat=True))
+    predicted_price_column = list(History.objects.values_list('predicted_price',  flat=True))
+
+    average_kzt_per_meter = int(sum(predicted_price_column) / sum(total_area_column))
+
+    building_types_data = [list(Counter(buildingType_column).keys()), list(Counter(buildingType_column).values())]
+    condition_types_data = [list(Counter(condition_column).keys()), list(Counter(condition_column).values())]
+
+
+    context = {
+        "building_types_keys": building_types_data[0],
+        "building_types_values": building_types_data[1],
+
+        "condition_types_keys": condition_types_data[0],
+        "condition_types_values": condition_types_data[1],
+
+        "number_of_history_notes": number_of_history_notes,
+        "number_of_history_notes_anonymous": number_of_history_notes_anonymous,
+        "number_of_history_notes_registered": number_of_history_notes_registered,
+
+        "average_kzt_per_meter": average_kzt_per_meter,
+
+
+    }
+    return render(request, "main/analytics.html", context=context)
     
 
 # REGISTRAION

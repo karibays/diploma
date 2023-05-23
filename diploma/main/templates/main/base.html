@@ -27,6 +27,13 @@
           <li class="nav-item">
             <a href="{% url 'history' %}" class="nav-link">History</a>
           </li>
+
+          {% if user.is_superuser %}
+          <li class="nav-item">
+              <a href="{% url 'dashboard' %}" class="nav-link">Dashboard</a>
+            </li>
+          {% endif %}
+
           <div class="nav-item-right" style="margin-left: auto;">
             {% if user.is_authenticated %}
             <li class="nav-item">
@@ -48,6 +55,9 @@
     {% block content %}
     {% endblock content %}
 
+
+    {% block script %}
+    {% endblock script %}
   </body>
 
 </html>
