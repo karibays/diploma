@@ -2,10 +2,17 @@
 
 {% block content %}
 <section class="container" style="width: 50%;">
+
+    {% for msg in messages %}
+        <div class="alert alert-warning" role="alert">
+            {{ msg }}
+        </div>
+    {% endfor %}
+    
     <header>Registration</header>
     <form method="post" class="form">
-
-    {% csrf_token %}
+        {% csrf_token %}
+        
         <div class="input-box">
             <label>Username</label>
             {{ form.username }}
@@ -13,7 +20,6 @@
 
         <div class="input-box">
             <label>First Name</label>
-            <input type="password">
             {{ form.fname }}
         </div>
 

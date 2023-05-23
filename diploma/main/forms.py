@@ -9,21 +9,10 @@ class PredictionForm(forms.Form):
     buildingType = forms.ChoiceField(label="Building Type", choices=[
         (0, 'other'), (1, 'brick'), (2, 'wooden'), (3, 'panel'), (4, 'monolithic')
     ])
-    # 0 - иное
-    # 1 - кирпичное
-    # 2 - деревянное
-    # 3 - панельное
-    # 4 - монолитное
 
     condition = forms.ChoiceField(label="Condition", choices=[
         (0, 'not completed'), (1, 'open plan'), (2, 'average'), (3, 'rough finish'), (4, 'good'), (5, 'needs renovation')
     ])
-    # 0 - не достроено
-    # 1 - свободная планировка
-    # 2 - среднее
-    # 3 - черновая отделка
-    # 4 - хорошее
-    # 5 - требует ремонта
     
     ceilings = forms.FloatField(label="Ceilings")
     parking = forms.BooleanField(label="Parking",  required=False)
@@ -35,12 +24,23 @@ class PredictionForm(forms.Form):
 
 
 class RegistrationForm(forms.Form):
-    username = forms.CharField(label="Create username")
-    fname = forms.CharField(label="Your Firstname")
-    lname = forms.CharField(label="Your Lastname")
-    email = forms.CharField(label="Your Email")
-    pass1 = forms.CharField(label="Create a Password")
-    pass2 = forms.CharField(label="Confirm Your Password")
+    username = forms.CharField(widget=forms.TextInput(attrs={
+    'class': 'input-text with-border', 'placeholder': 'Create username'}))
+
+    fname = forms.CharField(widget=forms.TextInput(attrs={
+    'class': 'input-text with-border', 'placeholder': 'Your Firstname'}))
+
+    lname = forms.CharField(widget=forms.TextInput(attrs={
+    'class': 'input-text with-border', 'placeholder': 'Your Lastname'}))
+
+    email = forms.CharField(widget=forms.TextInput(attrs={
+    'class': 'input-text with-border', 'placeholder': 'Your Email'}))
+    
+    pass1 = forms.CharField(widget=forms.PasswordInput(attrs={
+    'class': 'input-text with-border', 'placeholder': 'Create a Password'}))
+
+    pass2 = forms.CharField(widget=forms.PasswordInput(attrs={
+    'class': 'input-text with-border', 'placeholder': 'Confirm Your Password'}))
 
 
 class LoginForm(forms.Form):
